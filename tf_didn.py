@@ -88,7 +88,11 @@ class DUB(Model):
         scale_outputs = []
         for i_scale in range(self.n_scales):
             scale_input = outputs
-            for conv in self.convs[i_scale][:self.convs_per_scale[i_scale]]:
+            if i_scale < self.n_scales - 1:
+                n_convs = self.convs_per_scale[i_scale][0]
+            else:
+                n_convs = self.convs_per_scale[i_scale]
+            for conv in self.convs[i_scale][:n_convs]:
                 outputs = conv(outputs)
             outputs = outputs + scale_input
             if i_scale < self.n_scales - 1:
@@ -99,7 +103,8 @@ class DUB(Model):
             outputs = tf.concat([outputs, scale_outputs[i_scale]], axis=-1)
             outputs = self.agg_feature_maps[i_scale](outputs)
             scale_input = outputs
-            for conv in self.convs[i_scale][self.convs_per_scale[i_scale]:]:
+            n_convs = self.convs_per_scale[i_scale][0]
+            for conv in self.convs[i_scale][n_convs:]:
                 outputs = conv(outputs)
             outputs = outputs + scale_input
         outputs = self.final_conv(outputs)
