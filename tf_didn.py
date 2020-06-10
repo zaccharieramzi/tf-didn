@@ -38,7 +38,7 @@ class DUB(Model):
             Conv2D(
                 filters=self.n_filters*2**(i_scale+1),
                 kernel_size=3,
-                stride=2,
+                strides=2,
                 padding='same',
                 # when looking into the code https://github.com/SonghyunYu/DIDN/blob/master/gray_model.py
                 # we can see that no bias is used
@@ -47,7 +47,7 @@ class DUB(Model):
         ]
         self.unpoolings = [
             Subpixel(
-                filter=self.n_filters*2**i_scale,
+                filters=self.n_filters*2**i_scale,
                 kernel_size=1,
                 r=2,
                 padding='same',
@@ -88,10 +88,7 @@ class DUB(Model):
         scale_outputs = []
         for i_scale in range(self.n_scales):
             scale_input = outputs
-            if i_scale < self.n_scales - 1:
-                n_convs = self.convs_per_scale[i_scale][0]
-            else:
-                n_convs = self.convs_per_scale[i_scale]
+            n_convs = self.convs_per_scale[i_scale][0]
             for conv in self.convs[i_scale][:n_convs]:
                 outputs = conv(outputs)
             outputs = outputs + scale_input
@@ -182,7 +179,7 @@ class DIDN(Model):
         self.pooling = Conv2D(
             filters=self.n_filters,
             kernel_size=3,
-            stride=2,
+            strides=2,
             padding='same',
             use_bias=False,
         )
