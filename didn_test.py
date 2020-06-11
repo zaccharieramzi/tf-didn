@@ -1,7 +1,7 @@
 import numpy as np
 import tensorflow as tf
 
-from tf_didn import DIDN
+from didn import DIDN
 
 def test_didn():
     n_filters = 8

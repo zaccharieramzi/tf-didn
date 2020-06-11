@@ -4,4 +4,4 @@ install:
   - pip install tensorflow
 
 script:
-  - pytest tf_didn_test.py
+  - pytest didn_test.py
