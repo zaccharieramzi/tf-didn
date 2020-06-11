@@ -8,7 +8,6 @@ def test_didn():
     model = DIDN(
         n_filters=n_filters,
         n_dubs=2,
-        n_filters_recon=n_filters,
         n_convs_recon=3,
         n_scales=3,
     )
@@ -19,7 +18,6 @@ def test_didn_change():
     model = DIDN(
         n_filters=n_filters,
         n_dubs=2,
-        n_filters_recon=n_filters,
         n_convs_recon=3,
         n_scales=3,
     )
