@@ -52,7 +52,7 @@ class DUB(Model):
                 r=2,
                 padding='same',
                 use_bias=False,
-            ) for i_scale in range(self.n_scales)
+            ) for i_scale in range(self.n_scales - 1)
         ]
         self.convs = [
             [
